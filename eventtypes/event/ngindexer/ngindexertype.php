@@ -20,7 +20,7 @@ class ngIndexerEventType extends eZWorkflowEventType
         foreach ( $iniGroups as $iniGroupName => $iniGroup )
         {
             $iniGroupNameArray = explode( '/', $iniGroupName );
-            if ( count( $iniGroupNameArray ) == 3 )
+            if ( is_array( $iniGroupNameArray ) && count( $iniGroupNameArray ) == 3 )
             {
                 $class = eZContentClass::fetchByIdentifier( $iniGroupNameArray[0] );
                 if ( $class instanceof eZContentClass )
@@ -31,7 +31,7 @@ class ngIndexerEventType extends eZWorkflowEventType
                         $indexTarget = isset( $iniGroup['IndexTarget'] ) ? trim( $iniGroup['IndexTarget'] ) : '';
                         $referencedClassIdentifiers = isset( $iniGroup['ClassIdentifiers'] ) && is_array( $iniGroup['ClassIdentifiers'] ) ? $iniGroup['ClassIdentifiers'] : null;
 
-                        if ( strlen( $indexTarget ) > 0 && $referencedClassIdentifiers != null &&
+                        if ( $referencedClassIdentifiers != null &&
                             ( empty( $referencedClassIdentifiers ) || in_array( $targetClassIdentifier, $referencedClassIdentifiers ) ) )
                         {
                             switch ( $indexTarget )
