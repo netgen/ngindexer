@@ -1,0 +1,14 @@
+The installation of the extension is quick and painless. The only requirement is that eZ Find is activated and working properly.
+
+1) Extract the archive to the extension folder of your eZ Publish install
+
+2) Regenerate the autoload array
+
+3) Clear the caches
+
+4) Add Netgen Indexer datatype to your classes and configure the extension (for
+   detailed instructions see doc/CONFIG)
+
+5) Add the "Netgen Indexer" event to workflow triggers
+
+6) Code some fun stuff!

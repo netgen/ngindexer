@@ -1,0 +1,80 @@
+To allow your content objects (for example Article class) to store data directly
+to their respective Solr document from another set of your content objects (for
+example Image objects below articles), you need to add the "Netgen Indexer"
+datatype to them (that is, to Article class).
+
+This datatype is just a placeholder attribute and allows your objects to make
+use of the provided ezfSolrDocumentField handler class when indexing content.
+
+The configuration of the extension is best shown on the above example: You wish
+that every Article object stores into its Solr document all names of Image
+objects below articles. The configuration in ngindexer.ini needed for this is as
+follows:
+
+[article/ngindexer/image_name]
+IndexTarget=subtree
+ClassIdentifiers[]
+ClassIdentifiers[]=image
+IndexType=data_map_attribute
+Attribute=name
+
+Group name represents the matching of the settings to specific Netgen Indexer
+class atribute in the following format:
+class_identifier/attribute_identifier/arbitrary_name
+
+This will tell the extension to use this group of settings when indexing objects
+of "article" class which have a Netgen Indexer datatype named "ngindexer". The
+third value is used when constructing the Solr field name.
+
+IndexTarget option sets which objects to fetch data from in respect to the
+"article" objects. Possible values are:
+    1) parent - fetch data from first level parent of the article
+    2) parent_line - fetch data from the whole parent line, up to and including
+       the root node
+    3) children - fetch data from first level children of article
+    4) subtree - fetch data from the whole subtree
+
+ClassIdentifiers array sets which classes to take into account when fetching
+data. So, if you defined IndexTarget=subtree and ClassIdentifiers as array
+with"image" and "video" elements, only objects of those two classes will be
+fetched from the article subtree.
+
+IndexType defines what will actually be indexed from the objects that we
+selected through two settings above.
+Possible values are:
+    1) object - will fetch data from all eZ attributes (except Netgen Indexer
+       type)
+    2) object_attribute - will fetch data from object metadata (for example
+       $object.published)
+    3) node_attribute - same as object, but for node (for example
+       $node.path_string)
+    4) data_map_attribute - will fetch data from the specific eZ attribute, as
+       long as it's not of Netgen Indexer type
+    
+And finally, Attribute setting tells us the actuall name of the attribute to
+fetch (this setting is not used when IndexType=object, as data from all eZ
+attributes is fetched)
+
+Note that you can have as many of the above configuration groups as you want,
+for example: [article/ngindexer/image_name] and [article/ngindexer/image_title]
+and [article/ngindexer/video_name] and so on.
+
+When you configured the extension to your liking, you must reindex the content
+to push the changes to Solr. You can now start building your templates which can
+make use of the newlycreated fields for facets.
+
+As a reference, one or more Solr fields are created for each of the groups in
+the INI file and are named in the following way:
+
+"ngindexer_" + the third part of the group name from the INI + "_" + the
+original name of the fields from objects you indexed + "____" + data type suffix
+of the original field
+
+So, for the example above, the field that would be created in the article class
+would have the following name: ngindexer_image_name_attr_name_s____s
+
+To finalise the installation and have the extension 100% working, you also need
+to add the "Netgen Indexer" event to your workflow triggers (after/publish for
+example). This will allow, for example, the article objects to be reindexed when
+one of the image change their names, thus allowing the article to immediatelly
+store the new name into its Solr document.
