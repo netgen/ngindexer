@@ -1,0 +1,16 @@
+Netgen indexer is an extension that allows storing of data from a certain set of content objects directly to Solr document of another content object. 
+
+The main purpose of the extension is to facilitate simple but powerful faceted search that would otherwise require great deal of trouble to enable or would not be possible at all.
+
+For example:
+
+You have a folder full of article classes and below each article you have many images. Every image has a selection attribute that tells you where the picture was taken ( home, office, city, vacation... )
+
+You wish to use facets on those articles and images, to allow the searches like:
+1) Display articles which have images taken at home AND at the office
+2) Display articles which have images taken only on vacation
+3) .....
+
+Ofcourse, this is a rather simple usecase, but extension can be configured to do much more.
+
+Extension is published under GPL licence.
