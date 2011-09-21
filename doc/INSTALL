@@ -2,13 +2,15 @@ The installation of the extension is quick and painless. The only requirement is
 
 1) Extract the archive to the extension folder of your eZ Publish install
 
-2) Regenerate the autoload array
+2) Activate the extension in [ExtensionSettings] ActiveExtensions in site.ini
 
-3) Clear the caches
+3) Regenerate the autoload array
 
-4) Add Netgen Indexer datatype to your classes and configure the extension (for
+4) Clear the caches
+
+5) Add Netgen Indexer datatype to your classes and configure the extension (for
    detailed instructions see doc/CONFIG)
 
-5) Add the "Netgen Indexer" event to workflow triggers
+6) Add the "Netgen Indexer" event to workflow triggers
 
-6) Code some fun stuff!
+7) Code some fun stuff!
