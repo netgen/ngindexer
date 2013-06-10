@@ -1,0 +1,16 @@
+{
+    "name": "netgen/ngindexer",
+    "description": "Netgen indexer is an extension that allows storing of data from a certain set of content objects directly to Solr document of another content object.",
+    "type": "ezpublish-legacy-extension",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Netgen",
+            "email": "info@netgen.hr"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "ezsystems/ezpublish-legacy-installer": "*"
+    }
+}
